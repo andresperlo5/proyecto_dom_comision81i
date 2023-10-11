@@ -57,6 +57,7 @@ tBody.innerHTML = products.map((product) =>
                 </div>
             </div>
             </div>
+            <button class="btn btn-success" onclick="prodDestacado(${product.id})">Destacar</button>
         </td>
     </tr>
     `
@@ -125,7 +126,7 @@ const sendFormCreate = (ev) => {
     alert('el formulario esta vacio')
   } else {
 
-    const newId = products[products.length -1].id + 1
+    const newId = products[products.length - 1].id + 1
 
     const newProduct = {
       id: newId,
@@ -142,6 +143,27 @@ const sendFormCreate = (ev) => {
     location.reload()
   }
 
+
+}
+
+const prodDestacado = (id) => {
+  let prodDest = JSON.parse(localStorage.getItem('prodDest')) || []
+
+  if (prodDest.length > 0) {
+    const confirmCambioDest = confirm('Estas seguro de que quieres cambiar el producto destacado?')
+
+    if (confirmCambioDest) {
+      const prodFilter = products.filter((prod) => prod.id === id)
+      prodDest = prodFilter
+      localStorage.setItem('prodDest', JSON.stringify(prodDest))
+
+    }
+  } else {
+    const prodFilter = products.filter((prod) => prod.id === id)
+    prodDest.push(prodFilter[0])
+    localStorage.setItem('prodDest', JSON.stringify(prodDest))
+
+  }
 
 }
 

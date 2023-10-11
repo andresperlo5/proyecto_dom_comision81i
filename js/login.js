@@ -21,7 +21,7 @@ const sendForm = (ev) => {
       const userExist = users.filter((userLS) => userLS.user === user)
       console.log(userExist)
 
-      if (userExist.length === 0) {
+      if (userExist.length === 0 || userExist[0].deleted) {
         return alert('usuario y/o contraseña incorrecto')
       }
 

@@ -13,7 +13,7 @@ tBody.innerHTML =
         <td product-id="${user.id}">${user.role}</td>
 
         <td>
-        <button class="btn btn-danger" onclick="borrarProd(${user.id})">Eliminar</button>
+        <button class="${user.deleted ? 'btn btn-success' : 'btn btn-danger'}" onclick="${user.deleted ? `habilitarUser(${user.id})` : ` borrarProd(${user.id})`}">${user.deleted ? 'Habilitar' : 'Eliminar'}</button>
 
         <!-- Button trigger modal -->
             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal-${user.id}">
@@ -68,4 +68,26 @@ const selectedRole = (id) => {
 
 const editarUsuario = (id) => {
   console.log(id)
+}
+
+const borrarProd = (id) => {
+  const confirmDeleted = confirm('Estas seguro de que quieres eliminar este usuario?')
+
+  if (confirmDeleted) {
+    const filterUsers = users.filter((user) => user.id === id)
+    filterUsers[0].deleted = true
+    localStorage.setItem('users', JSON.stringify(users))
+    location.reload()
+  }
+}
+
+const habilitarUser = (id) => {
+  const confirmDeleted = confirm('Estas seguro de que quieres habilitar a este usuario?')
+
+  if (confirmDeleted) {
+    const filterUsers = users.filter((user) => user.id === id)
+    filterUsers[0].deleted = false
+    localStorage.setItem('users', JSON.stringify(users))
+    location.reload()
+  }
 }

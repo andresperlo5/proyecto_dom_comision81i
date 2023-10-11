@@ -38,7 +38,8 @@ const sendForm = (ev) => {
                 user,
                 pass,
                 role: 'user',
-                login: true
+                login: true,
+                deleted: false
             }
 
             users.push(newUser)
